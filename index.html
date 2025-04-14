@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shojeeb's WordPress Portfolio</title>
+    <style>
+        :root {
+            --primary: #4a00e0;
+            --secondary: #8e2de2;
+            --dark: #121212;
+            --light: #f8f9fa;
+            --accent: #00b4d8;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 25% 15%, rgba(74, 0, 224, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 75% 85%, rgba(0, 180, 216, 0.1) 0%, transparent 40%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0.1;
+            z-index: -1;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .personal-note {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        
+        .stats-wrapper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+        
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            opacity: 0.7;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .category {
+            margin-bottom: 4rem;
+        }
+        
+        .category-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .category-title::before {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .project-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            transform: scale(1);
+            transform-origin: top center;
+            transition: transform 15s ease;
+        }
+        
+        .project-card:hover .project-iframe {
+            transform: translateY(-30%);
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .project-description {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .project-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .tech-stack {
+            margin-top: 5rem;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 120px;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .tech-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-name {
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .contact {
+            margin-top: 5rem;
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+            align-items: center;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .contact-icon {
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .projects {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 100px; height: 100px; left: 10%; top: 20%; animation-duration: 25s;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; left: 70%; top: 40%; animation-duration: 20s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; left: 20%; top: 80%; animation-duration: 18s;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; left: 80%; top: 10%; animation-duration: 22s;"></div>
+        <div class="floating-element" style="width: 70px; height: 70px; left: 40%; top: 60%; animation-duration: 15s;"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Shojeeb's Project Portfolio</h1>
+            <p class="subtitle">WordPress Developer & WooCommerce Specialist</p>
+            <p class="personal-note">These are my personal side projects completed alongside my full-time WordPress development position. My professional work portfolio includes many additional client projects not showcased here.</p>
+            
+            <div class="stats-container">
+                <div class="stats-wrapper">
+                    <div class="stat-card">
+                        <div class="stat-value">15+</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">5+</div>
+                        <div class="stat-label">E-Commerce</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3+</div>
+                        <div class="stat-label">SaaS</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">10+</div>
+                        <div class="stat-label">Business</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section class="category">
+            <h2 class="category-title">Custom WooCommerce Stores</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://www.vividdhaka.com/" class="project-iframe" title="Vividdhaka Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Vividdhaka</h3>
+                        <div class="project-tags">
+                            <span class="tag">WooCommerce</span>
+                            <span class="tag">WordPress</span>
+                            <span class="tag">E-Commerce</span>
+                        </div>
+                        <p class="project-description">Custom WooCommerce store with advanced product filtering and shopping features.</p>
+                        <a href="https://www.vividdhaka.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://naziyat.com/" class="project-iframe" title="Naziyat Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Naziyat</h3>
+                        <div class="project-tags">
+                            <span class="tag">WooCommerce</span>
+                            <span class="tag">WordPress</span>
+                            <span class="tag">E-Commerce</span>
+                        </div>
+                        <p class="project-description">Premium online shopping experience with custom product showcasing.</p>
+                        <a href="https://naziyat.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://www.sunmibangladesh.com/" class="project-iframe" title="Sunmi Bangladesh Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Sunmi Bangladesh</h3>
+                        <div class="project-tags">
+                            <span class="tag">WooCommerce</span>
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Retail</span>
+                        </div>
+                        <p class="project-description">Retail sales platform with integrated payment systems and inventory management.</p>
+                        <a href="https://www.sunmibangladesh.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://dianatheme.com/" class="project-iframe" title="Diana Theme Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Diana Theme</h3>
+                        <div class="project-tags">
+                            <span class="tag">WooCommerce</span>
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Themes</span>
+                        </div>
+                        <p class="project-description">Premium WordPress theme marketplace with WooCommerce integration.</p>
+                        <a href="https://dianatheme.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://innovadeus.com/" class="project-iframe" title="Innovadeus Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Innovadeus</h3>
+                        <div class="project-tags">
+                            <span class="tag">WooCommerce</span>
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Custom</span>
+                        </div>
+                        <p class="project-description">Innovation-focused e-commerce platform with custom product categorization.</p>
+                        <a href="https://innovadeus.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="category">
+            <h2 class="category-title">Responsive Business Websites</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://www.dianahost.com/" class="project-iframe" title="Diana Host Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Diana Host</h3>
+                        <div class="project-tags">
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Hosting</span>
+                            <span class="tag">Business</span>
+                        </div>
+                        <p class="project-description">Web hosting service provider with custom dashboard and client management.</p>
+                        <a href="https://www.dianahost.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://bytesis.com/" class="project-iframe" title="Bytesis Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Bytesis</h3>
+                        <div class="project-tags">
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Business</span>
+                            <span class="tag">Services</span>
+                        </div>
+                        <p class="project-description">Digital services agency with portfolio showcase and service offerings.</p>
+                        <a href="https://bytesis.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="http://bytetheme.net/" class="project-iframe" title="Byte Theme Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Byte Theme</h3>
+                        <div class="project-tags">
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Themes</span>
+                            <span class="tag">Business</span>
+                        </div>
+                        <p class="project-description">Theme development agency with interactive portfolio and demo system.</p>
+                        <a href="http://bytetheme.net/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://softx.agency/" class="project-iframe" title="SoftX Agency Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">SoftX Agency</h3>
+                        <div class="project-tags">
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Agency</span>
+                            <span class="tag">Portfolio</span>
+                        </div>
+                        <p class="project-description">Digital agency portfolio with case studies and service offerings.</p>
+                        <a href="https://softx.agency/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="category">
+            <h2 class="category-title">E-Commerce Platforms</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://mastoorahbd.com/" class="project-iframe" title="Mastoorjah BD Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Mastoorahbd</h3>
+                        <div class="project-tags">
+                            <span class="tag">E-Commerce</span>
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Custom</span>
+                        </div>
+                        <p class="project-description">Fully custom e-commerce website with advanced filtering and payment integration.</p>
+                        <a href="https://mastoorahbd.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://sohojponno.com/" class="project-iframe" title="Sohoj Ponno Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Sohoj Ponno</h3>
+                        <div class="project-tags">
+                            <span class="tag">WooCommerce</span>
+                            <span class="tag">WordPress</span>
+                            <span class="tag">E-Commerce</span>
+                        </div>
+                        <p class="project-description">WooCommerce eCommerce platform with multi-vendor capabilities.</p>
+                        <a href="https://sohojponno.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="category">
+            <h2 class="category-title">WordPress & CMS Projects</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://playwithai.io/" class="project-iframe" title="PlayWithAI Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">PlayWithAI</h3>
+                        <div class="project-tags">
+                            <span class="tag">WordPress</span>
+                            <span class="tag">AI</span>
+                            <span class="tag">Stripe</span>
+                        </div>
+                        <p class="project-description">WordPress-powered AI tools with Stripe billing integration and subscription management.</p>
+                        <a href="https://playwithai.io/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://codemoly.com/" class="project-iframe" title="Codemoly Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Codemoly</h3>
+                        <div class="project-tags">
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Service</span>
+                            <span class="tag">Dashboard</span>
+                        </div>
+                        <p class="project-description">WordPress service agency site with custom dashboard and client portal.</p>
+                        <a href="https://codemoly.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <iframe src="https://ripplix.com/" class="project-iframe" title="Ripplix Website" loading="lazy"></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Ripplix</h3>
+                        <div class="project-tags">
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Animation</span>
+                            <span class="tag">ACF</span>
+                        </div>
+                        <p class="project-description">UI animation-sharing platform built with ACF and Gumlet integration.</p>
+                        <a href="https://ripplix.com/" target="_blank" class="project-link">Visit Site</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="tech-stack">
+            <h2 class="category-title">WordPress Technology Stack</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">📝</div>
+                    <div class="tech-name">WordPress</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🛒</div>
+                    <div class="tech-name">WooCommerce</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🧩</div>
+                    <div class="tech-name">Elementor</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔧</div>
+                    <div class="tech-name">Gutenberg</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔌</div>
+                    <div class="tech-name">WP Plugins</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🎁</div>
+                    <div class="tech-name">ACF Pro</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🦅</div>
+                    <div class="tech-name">Beaver Builder</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🚀</div>
+                    <div class="tech-name">Divi</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🐘</div>
+                    <div class="tech-name">PHP</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🎨</div>
+                    <div class="tech-name">CSS/SCSS</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">💻</div>
+                    <div class="tech-name">JavaScript</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">💳</div>
+                    <div class="tech-name">Stripe</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="contact">
+    <h2>Let's Connect</h2>
+    <p>Interested in working together or have questions about my WordPress projects? Feel free to reach out!</p>
+    
+    <div class="contact-info">
+        <a href="mailto:shojeeb1943@gmail.com" class="contact-item">
+            <span class="contact-icon">📧</span>
+            <span>shojeeb1943@gmail.com</span>
+        </a>
+        <a href="tel:+8801816122188" class="contact-item">
+            <span class="contact-icon">📱</span>
+            <span>+8801816122188</span>
+        </a>
+        <a href="https://www.shojeeb.com" target="_blank" class="contact-item">
+            <span class="contact-icon">🌐</span>
+            <span>www.shojeeb.com</span>
+        </a>
+    </div>
+    
+    <div class="social-links">
+        <a href="https://www.linkedin.com/in/shojeeb1943" target="_blank" class="social-link">
+            <span>in</span>
+        </a>
+        <a href="https://www.github.com/shojeeb1943" target="_blank" class="social-link">
+            <span>🐙</span>
+        </a>
+        <a href="mailto:shojeeb1943@gmail.com" class="social-link">
+            <span>✉️</span>
+        </a>
+        <a href="tel:+8801816122188" class="social-link">
+            <span>📞</span>
+        </a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Shojeeb. All rights reserved. | WordPress Developer & WooCommerce Specialist</p>
+</footer>
