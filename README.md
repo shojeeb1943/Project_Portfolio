@@ -46,7 +46,7 @@ This repository contains the HTML/CSS code for Shojeeb's personal WordPress port
 | Project | Description | Visit Site |
 |:-------:|:------------|:----------:|
 | <img src="https://img.shields.io/badge/Vividdhaka-E--Commerce-4a00e0"> | Custom WooCommerce store with advanced product filtering and shopping features | [🔗 Live Site](https://www.vividdhaka.com/) |
-| <img src="https://img.shields.io/badge/Naziyat-E--Commerce-8e2de2"> | Premium online shopping experience with custom product showcasing | [🔗 Live Site](https://naziyat.com/) |
+| <img src="https://img.shields.io/badge/Naziyat-E--Commerce-8e2de2"> | Premium online shopping experience with custom product showcasing | [🔗 Live Site](http://annazatbd.com/) |
 | <img src="https://img.shields.io/badge/Sunmi%20Bangladesh-Retail-00b4d8"> | Retail sales platform with integrated payment systems and inventory management | [🔗 Live Site](https://www.sunmibangladesh.com/) |
 | <img src="https://img.shields.io/badge/Diana%20Theme-Themes-06d6a0"> | Premium WordPress theme marketplace with WooCommerce integration | [🔗 Live Site](https://dianatheme.com/) |
 | <img src="https://img.shields.io/badge/Innovadeus-Custom-ef476f"> | Innovation-focused e-commerce platform with custom product categorization | [🔗 Live Site](https://innovadeus.com/) |
